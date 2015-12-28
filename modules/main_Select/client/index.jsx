@@ -23,13 +23,12 @@ let Presenter = React.createClass({
   },
 
   selectPresentation(data) {
-    let user = Meteor.userId()
     let link = data.link
     let gid = data.gid
 
     // TODO: Get rid of setPresentation action????
     this.props.setPresentation(data.gid)
-    Meteor.call('createPresentation', link, user, gid, function (err, result) {
+    Meteor.call('createDeck', link, gid, function (err, result) {
       if (err) {
         console.error('from preview ', err)
       } else {
@@ -67,6 +66,7 @@ let Presenter = React.createClass({
                 title={preview.title}
                 children={<img src={preview.thumbnail}/>}
                 onClick={this.selectPresentation.bind(null, preview)}
+                onTouchTap={this.selectPresentation.bind(null, preview)}
                 style={tile}
               /></Link>
             )

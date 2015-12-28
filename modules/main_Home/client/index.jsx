@@ -29,6 +29,13 @@ let Home = React.createClass({
   // getMeteorData() {
 
   // },
+  createPresentation() {
+    if (Meteor.user().services.google.expiresAt > Date.now()) {
+      this.props.openSelect(true)
+    } else  {
+      Meteor.logout()
+    }
+  },
 
   submitCode(event) {
     event.preventDefault();
@@ -42,6 +49,18 @@ let Home = React.createClass({
     } else {
       this.props.codeValidation(true);
     }
+  },
+
+  test(){
+    console.log('clicked');
+
+    Meteor.loginWithGoogle({
+      // Options
+    }, () => {
+      for (var i = 0; i < arguments.length; i++) {
+        console.log('argument', i, arguments[i])
+      }
+    })
   },
 
   render() {
@@ -124,10 +143,13 @@ let Home = React.createClass({
                 label={this.props.home.get('loggedIn') ? 'Create!' : 'Login to create'}
                 labelStyle={this.props.home.get('loggedIn') ? {color: primaryColor, fontSize: '3rem'} : {fontSize: '2.5rem'}}
                 style={create}
-                onClick={this.props.openSelect.bind(null, true)}
-                onTouchTap={this.props.openSelect.bind(null, true)}
+                onClick={this.createPresentation}
+                onTouchTap={this.createPresentation}
               />
               <div style={{fontSize: '3rem', margin: '1rem'}}>- or -</div>
+
+              {/*Meteor.loggingIn() ? <div>logging in</div> : null*/}
+              <button onClick={this.test}>test</button>
 
               <form onSubmit={this.submitCode} style={{margin: '0'}}>
                 <input placeholder="Enter Code" maxLength={4} style={join} />
