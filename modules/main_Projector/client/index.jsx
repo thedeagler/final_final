@@ -13,7 +13,7 @@ import Grid from 'sub_chat/client/grid'
 
 import Codes from 'db/Codes'
 
-import { Dialog, Paper } from 'material-ui'
+import { Dialog } from 'material-ui'
 import { Colors } from 'material-ui/styles'
 
 let Projector = React.createClass({
@@ -55,13 +55,17 @@ let Projector = React.createClass({
         ><Grid isProjector/>
         </Dialog>
 
-        <div style={{textAlign: 'center', backgroundColor: 'rgba(255, 255, 255, 0.75)', position: 'fixed', top: '0', width: '100%'}}>
+        <div className="row" style={{textAlign: 'center', height: '1rem', width: '100%'}}>
           <span style={{float: 'left'}}>Presentation Code: {this.props.params.code}</span>
           <span>{window.location.origin}</span>
           <span style={{float: 'right'}}>Viewers: {this.props.viewers}</span>
         </div>
 
-        <Slide />
+        <div className="row">
+          <div className="column" style={{width: '126vh', position: 'absolute', left: '50%', top: '2.1rem', transform: 'translateX(-50%)'}}>
+            <Slide />
+          </div>
+        </div>
       </div>
     )
   }
